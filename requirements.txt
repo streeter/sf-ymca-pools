@@ -1,0 +1,11 @@
+beautifulsoup4==4.7.1
+Django==2.2.1
+ics==0.4
+pathlib==1.0.1
+python-dateutil==2.8.0
+requests==2.21.0
+
+# Dev
+django-debug-toolbar
+ipython
+jupyterlab
