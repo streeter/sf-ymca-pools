@@ -1,11 +1,13 @@
 from django.http import Http404
 from django.shortcuts import render
+from django.views.decorators.cache import cache_control
 
 from .calendar import calendar_for_events
 from .fetch import fetch_next_days_for_branch
 from .models import Branch
 
 
+@cache_control(max_age=60*60*24, public=True)
 def index(request):
     branches = [b.name.lower() for b in Branch]
     return render(
@@ -15,6 +17,7 @@ def index(request):
     )
 
 
+@cache_control(max_age=60*60, public=True)
 def branch(request, branch_name):
     try:
         branch = [
