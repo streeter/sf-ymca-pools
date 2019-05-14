@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
 <!-- prettier-ignore -->
-{% block header %}
-<h1>Events for the {{ branch.title }} YMCA Pool</h1>
-{% endblock header %}
+{% block title %} {{ branch.title }} YMCA Pool Hours {% endblock title %}
+
+<!-- prettier-ignore -->
+{% block header %} {{ branch.title }} YMCA Pool Hours {% endblock header %}
 
 <!-- prettier-ignore -->
 {% block content %}
