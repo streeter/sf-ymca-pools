@@ -4,7 +4,6 @@ import logging
 
 from bs4 import BeautifulSoup
 from dateutil.parser import parse
-from lxml import html
 import requests
 
 from sfymca.feed.models import Branch, Event
