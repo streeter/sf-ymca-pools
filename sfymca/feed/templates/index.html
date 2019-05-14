@@ -1,14 +1,20 @@
 {% extends "base.html" %}
 
 <!-- prettier-ignore -->
+{% block header %}
+<h1>Calendars for the SF YMCA Pools</h1>
+{% endblock header %}
+
+<!-- prettier-ignore -->
 {% block content %}
 <section class="branches">
-    <ul class="branch-list">
-        {% for branch in branches %}
-        <li class="branch-list-item">
-            <a href="{% url 'branch_calendar' branch %}">{{ branch }}</a>
-        </li>
-        {% endfor %}
-    </ul>
+  <ul class="branch-list">
+    {% for branch in branches %}
+    <li class="branch-list-item">
+      <a href="{% url 'branch' branch %}">{{ branch }}</a>
+      (<a href="{% url 'branch_calendar' branch %}">calendar</a>)
+    </li>
+    {% endfor %}
+  </ul>
 </section>
 {% endblock %}

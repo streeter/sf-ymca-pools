@@ -26,14 +26,31 @@ class FormFields(Enum):
     ScheduleKind = 'term_node_tid_depth[]'
 
 
-def fetch_schedule(branch, date):
-        # Format date as MM/DD/YYYY
+IGNORED_EVENT_NAMES = [
+    'group',
+    'walking',
+    'aerobics',
+    'camp',
+    'class',
+    'lessons',
+    'fit',
+    'private'
+]
+
+
+def url_for_facility(branch, date):
+    # Format date as MM/DD/YYYY
     url = (
         f'https://www.ymcasf.org/facility-schedule'
         f'?{FormFields.Branch.value}={branch.value}'
         f'&{FormFields.ScheduleKind.value}={PoolScheduleID}'
         f'&{FormFields.Date.value}={date:%m/%d/%Y}'
     )
+    return url
+
+
+def fetch_schedule(branch, date):
+    url = url_for_facility(branch, date)
 
     logger.info(f'Fetching {url}')
 
@@ -50,19 +67,30 @@ def fetch_schedule(branch, date):
         cols = row.find_all('td')
 
         name = cols[TableColumns.Event.value].text.strip()
-        if 'Group' in name or 'Walking' in name:
+        if any([n in name.lower() for n in IGNORED_EVENT_NAMES]):
             continue
 
+        studio = cols[TableColumns.Studio.value].text.strip()
+        if studio.lower() == 'pool':
+            studio = ''
+
         range_cell = cols[TableColumns.TimeRange.value]
-        start = range_cell.find('span', class_='date-display-start')['content']
-        end = range_cell.find('span', class_='date-display-end')['content']
+        start_str = range_cell.find('span', class_='date-display-start')['content']
+        end_str = range_cell.find('span', class_='date-display-end')['content']
 
-        start = parse(start)
-        end = parse(end)
+        start, end = parse(start_str), parse(end_str)
 
-        id = f'{date:%Y-%m-%d}-{branch.value}-{index}'
+        # For whatever reason, the tz offset has a bad offset...
+        # tz = pytz.timezone('America/Los_Angeles')
+        # start, end = start.replace(tzinfo=tz), end.replace(tzinfo=tz)
 
-        events.append(Event(id, name, branch, start, end))
+        if end < start:
+            logger.warn('The end date was before the start date...')
+            continue
+
+        eid = f'{date:%Y-%m-%d}-{branch.value}-{studio}-{index}'
+
+        events.append(Event(eid, name, branch, studio, start, end, url))
 
     return events
 

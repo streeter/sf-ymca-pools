@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+<!-- prettier-ignore -->
+{% block header %}
+<h1>Events for the {{ branch.title }} YMCA Pool</h1>
+{% endblock header %}
+
+<!-- prettier-ignore -->
+{% block content %}
+
+<section class="feed">
+  <a href="{% url 'index' %}">Back</a> &mdash;
+  <a href="{% url 'branch_calendar' branch %}">{{ branch.title }} Calendar</a>
+</section>
+
+<section class="branch">
+  <ul class="events-list">
+    {% for event in events %}
+    <li class="event-list-item">
+      <b>{{ event.name }}</b> at
+      <a href="{{ event.url }}">{{ event.location }}</a> from {{ event.start }}
+      to {{ event.end }}
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

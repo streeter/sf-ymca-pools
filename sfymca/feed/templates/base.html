@@ -25,11 +25,13 @@
 
   <body>
     <header>
+      {% block header %}
       <h1>Calendars for the SF YMCA Pools</h1>
+      {% endblock header %}
     </header>
 
     <div class="content">
-      {% block content %}{% endblock %}
+      {% block content %}{% endblock content %}
     </div>
 
     <footer class="page-footer">
