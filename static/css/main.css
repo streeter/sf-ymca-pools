@@ -1,0 +1,47 @@
+body {
+    font-family: sans-serif;
+    font-weight: 400;
+    /* gray-900 */
+    color: #24292e;
+}
+
+a,
+a:link,
+a:hover {
+    /* green-500 */
+    color: #28a745;
+}
+
+header {
+    font-weight: 900;
+    height: 80px;
+    text-align: center;
+}
+
+h1,
+.h1 {
+    font-size: 2rem;
+}
+h2,
+.h2 {
+    font-size: 1.75rem;
+}
+
+.content {
+    /* 100% - 80px - 40px; */
+    min-height: calc(100vh - 200px);
+}
+
+.page-footer {
+    height: 40px;
+    text-align: center;
+}
+
+.page-footer .copyright {
+}
+
+.page-footer .copyright a {
+    /* gray-700 */
+    color: #444d56;
+    text-decoration: none;
+}

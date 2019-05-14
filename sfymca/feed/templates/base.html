@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>
+      {% block title %}San Francisco YMCA Pool Calendars{% endblock %}
+    </title>
+    <meta name="description" content="San Francisco YMCA Pool Calendars" />
+    <meta name="application-name" content="SF YMCA Pool Calendars" />
+    <meta name="msapplication-tooltip" content="SF YMCA Pool Calendars" />
+    <meta name="apple-mobile-web-app-title" content="SF YMCA Pool Calendars" />
+    <link
+      href="{% static 'css/main.css' %}"
+      rel="stylesheet"
+      property="stylesheet"
+    />
+    {% block extrahead %}{% endblock extrahead %}
+  </head>
+
+  <body>
+    <header>
+      <h1>Calendars for the SF YMCA Pools</h1>
+    </header>
+
+    <div class="content">
+      {% block content %}{% endblock %}
+    </div>
+
+    <footer class="page-footer">
+      <div class="copyright">
+        <p>
+          <a href="https://github.com/streeter/sf-ymca-pools"
+            >Source on GitHub</a
+          >
+        </p>
+      </div>
+    </footer>
+  </body>
+
+  {% block afterbody %}{% endblock %}
+</html>

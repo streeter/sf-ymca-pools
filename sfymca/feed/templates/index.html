@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+<!-- prettier-ignore -->
+{% block content %}
+<section class="branches">
+    <ul class="branch-list">
+        {% for branch in branches %}
+        <li class="branch-list-item">
+            <a href="{% url 'branch_calendar' branch %}">{{ branch }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}

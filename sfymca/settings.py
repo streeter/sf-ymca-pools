@@ -1,26 +1,23 @@
 import os
 
-import pathlib
 import secrets
 
 
-BASE_DIR = pathlib.Path(__file__).parent
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*ybv1#paxxjijd&l!@&4aoiu71wy^uk#*)z#6^%aiooi1z3lg='
-
-
-ALLOWED_HOSTS = ["*"]
-DEBUG = "DJANGO_DEBUG" in os.environ
+ALLOWED_HOSTS = ['*']
+DEBUG = 'DJANGO_DEBUG' in os.environ
 LANGUAGE_CODE = 'en-us'
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", secrets.token_bytes())
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', secrets.token_bytes())
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # Internationalization
@@ -47,6 +44,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -85,10 +83,10 @@ TEMPLATES = [
 ]
 
 LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "handlers": {"console": {"class": "logging.StreamHandler"}},
-    "loggers": {"django": {"handlers": ["console"], "level": "INFO"}},
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {'console': {'class': 'logging.StreamHandler'}},
+    'loggers': {'django': {'handlers': ['console'], 'level': 'INFO'}},
 }
 
 
