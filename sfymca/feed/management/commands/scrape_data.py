@@ -20,10 +20,10 @@ class Command(BaseCommand):
         try:
             return fetch_next_days(days)
         except Exception as e:
-            raise CommandError(f'{e}')
+            raise CommandError(f"{e}")
 
     def _handle_response(self, events):
         cal = calendar_for_events(events)
         self.stdout.write(str(cal))
 
-        self.stdout.write(self.style.SUCCESS('done'))
+        self.stdout.write(self.style.SUCCESS("done"))
